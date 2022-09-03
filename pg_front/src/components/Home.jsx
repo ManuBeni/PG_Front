@@ -9,10 +9,12 @@ import Nav from "./Nav";
 import Filters from "./Filters";
 import Image from "../asset/home.png";
 import Pagination from "./Pagination";
-import "../Style/Home.css";
-import Footer from "./Footer";
 import home from "../asset/home.png";
 import h from "./Home.module.css";
+
+import CarouselBrands from "./CarouselBrands";
+
+
 
 export default function Home() {
   const allProducts = useSelector((state) => state.products);
@@ -52,9 +54,10 @@ export default function Home() {
           //borderRadius: 50
         }}
       />
+      <CarouselBrands />
       <img
         src={home}
-        style={{ width: "100vw", height: "100vh", marginTop: "-1rem" }}
+        style={{ width: "100%", height: "100%", marginTop: "-1rem" }}
       />
       <Filters />
       <Typography
@@ -107,7 +110,7 @@ export default function Home() {
             ))}
         </Box>
       </Container>
-      <Footer />
+      
     </>
   );
 }

@@ -5,11 +5,14 @@ import { useDispatch } from "react-redux";
 import { checkLogin } from "./redux/action";
 import { Route } from "react-router-dom";
 import Landing from "./components/Landing";
+import Formulario from './components/Formulario'
 import Login from "./components/Login";
 import Detail from "./components/Detail";
 import CreateProduct from "./components/CreateProduct";
 import Home from "./components/Home";
 import Admin from "./components/Admin";
+import FormProduct from "./components/FormProduct";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,9 +38,12 @@ function App() {
           path="/detail/:id"
           render={({ match }) => <Detail match={match} />}
         />
-        <Route exact path="/create" component={CreateProduct} />
+        <Route exact path="/entrega" component={Formulario} />
         <Route exact path="/admin" component={Admin} />
+        <Route exact path="/admin/create" component={FormProduct} />
+
       </header>
+      <Footer/>
     </div>
   );
 }

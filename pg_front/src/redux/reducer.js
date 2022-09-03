@@ -12,6 +12,9 @@ import {
   ORDER_BY,
   DETAIL_PRODUCT,
   ORDER_BY_PRICE,
+  ADD_TO_CART,
+  DELETE_FROM_CART,
+  DELETE_ALL_FROM_CART,
 } from "./const";
 
 const initialState = {
@@ -19,6 +22,7 @@ const initialState = {
   altProducts: [],
   user: {},
   errorLogin: "",
+  cartItems: [],
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -62,18 +66,18 @@ export const rootReducer = (state = initialState, action) => {
         action.payload === "All"
           ? allBrands
           : allBrands.filter((p) => p.brand.includes(action.payload));
-      console.log(filteredBrands);
+      console.log(action.payload);
       return {
         ...state,
         products: filteredBrands, //Se modifica este estado pero sin embargo siempre queda el alternativo para seguir utilizando toda la info
       };
     case FILTER_GENRE:
-      const allGenres = state.altProducts;
+      const allGenres = state.products;
       const filteredGenres =
         action.payload === "All"
           ? allGenres
           : allGenres.filter((g) => g.genre.includes(action.payload));
-      console.log(filteredGenres);
+        console.log(action.payload)
       return {
         ...state,
         products: filteredGenres, //Se modifica este estado pero sin embargo siempre queda el alternativo para seguir utilizando toda la info
@@ -104,6 +108,7 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         products: sortProduct,
+        altProducts: sortProduct,
       };
 
     case ORDER_BY_PRICE:
@@ -132,6 +137,7 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         products: sortPrice,
+        altProducts: sortPrice,
       };
 
     case DETAIL_PRODUCT:
@@ -139,6 +145,30 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         detail: action.payload,
+      };
+
+    case ADD_TO_CART:
+      const allProds = state.altProducts;
+      const id = action.payload;
+      const item = allProds.filter((i) => i.id === id);
+      return {
+        ...state,
+        cartItems: [...state.cartItems, item].flat(),
+      };
+
+    case DELETE_FROM_CART:
+      const allItems = state.cartItems;
+      const index = action.payload;
+      const item2 = allItems.filter((e, idx) => idx !== index);
+      return {
+        ...state,
+        cartItems: item2,
+      };
+
+    case DELETE_ALL_FROM_CART:
+      return {
+        ...state,
+        cartItems: [],
       };
 
     case FILTER_NAV_GENDER:
